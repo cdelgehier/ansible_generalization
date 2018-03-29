@@ -1,0 +1,17 @@
+---
+openio_keystone_services_to_bootstrap:
+  - name: keystone
+    user: admin
+    password: "{{ keystone_admin_password |default('ADMIN_PASS') }}"
+    project: admin
+    role: admin
+    regionid: RegionOne
+    adminurl: "http://{{ ansible_default_ipv4.address }}:35357"
+    publicurl: "http://{{ ansible_default_ipv4.address }}:5000"
+    internalurl: "http://{{ ansible_default_ipv4.address }}:5000"
+
+sql_engine: sqlite
+keystone_mysql_rootuser_password: toto                                      
+keystone_mysql_keystoneuser_password: foo                                   
+keystone_admin_password: bar 
+...

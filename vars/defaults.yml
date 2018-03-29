@@ -1,0 +1,46 @@
+---
+# Set to true to allow pre-checks to fail and continue deployment
+openio_ignore_assert_errors: false
+
+# Set of linux distribution supported
+openio_distribution_supported: ['RedHat', 'CentOS', 'Fedora', 'Ubuntu']
+
+# openio's GID
+openio_group_openio_gid: 220
+# openio's UID
+openio_user_openio_uid: 120
+
+# Memcached port
+memcached_port: 6019
+# Conscience port
+conscience_port: 6000
+
+tcp_ports:
+  - "{{ memcached_port }}"
+  - "{{ conscience_port }}"
+
+# Global ports (uniq by node)
+# openio_network_global_ports:
+#   zookeeper:        6005
+#   oioproxy:         6006
+#   oioswift:         6007
+#   oioeventagent:    6008
+#   account:          6009
+#   redis:            6011
+#   redissentinel:    6012
+#   #rainx:            6013
+#   beanstalkd:       6014
+#   replicator:       6015
+#   #sqlx:             6016
+#   ecd:              6017
+#   replicator_admin: 6018
+#   memcached:        6019
+
+# Specific ports (by service)
+# openio_network_conscience_port: 6000
+# openio_network_meta0_port:      6001
+# openio_network_meta1_port:      6002
+# openio_network_meta2_port:      6003
+# openio_network_rawx_port:       6004
+# openio_network_rdir_port:       6010
+...

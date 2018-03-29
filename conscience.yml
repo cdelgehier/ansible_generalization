@@ -1,0 +1,51 @@
+---
+- name: Install OpenIO Conscience
+  hosts: conscience
+  gather_facts: false
+  become: true
+  vars_files:
+    - vars/defaults.yml
+    - vars/namespace.yml
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: repository
+  # tasks:
+  #   - name: include gridinit's role
+  #     include_role:
+  #       name: gridinit
+  #     vars:
+  #       openio_gridinit_services:
+  #         - name: "conscience-0"
+  #           namespace: "{{ namespace }}"
+  #           type: conscience
+  #           configuration:
+  #             command: "/usr/bin/oio-daemon -s {{ namespace }},conscience,0 /etc/oio/sds/{{ namespace }}/conscience-0/conscience-0.conf"
+  #             enabled: true
+  #             start_at_boot: true
+  #             on_die: respawn
+  #             uid: openio
+  #             gid: openio
+  #             env_PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+    - role: gridinit
+      openio_gridinit_services:
+        - name: conscience-0
+          namespace: "{{ namespace }}"
+          type: conscience
+          configuration:
+            command: "/usr/bin/oio-daemon -s {{ namespace }},conscience,0 /etc/oio/sds/{{ namespace }}/conscience-0/conscience-0.conf"
+            enabled: true
+            start_at_boot: true
+            on_die: respawn
+            uid: openio
+            gid: openio
+            env_PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+
+    - role: conscience
+      openio_conscience_namespace: "{{ namespace }}"
+      openio_conscience_namespace_status: "standalone"
+      openio_conscience_bind_port: "{{ conscience_port }}"
+...

@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+[{{ namespace }}]
+# endpoints
+conscience={{ namespace_conscience.address }}
+zookeeper={{ namespace_zookeeper.address }}
+proxy={{ namespace_oioproxy.address }}
+event-agent={{ namespace_conscience.address }}
+
+meta1_digits={{ namespace_meta1_digits }}
+udp_allowed={{ namespace_udp_allowed }}
+
+ns.storage_policy={{ namespace_storage_policy }}
+ns.chunk_size={{ (namespace_chunk_size_megabytes | int) * 1024 * 1024 }}
+ns.service_update_policy={% for servicetype in namespace_service_update_policy %}{{ servicetype.name }}={{ servicetype.policy }}|{{ servicetype.replicas }}|{{ servicetype.distance }}|;{% endfor %}

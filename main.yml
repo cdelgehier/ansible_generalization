@@ -1,0 +1,23 @@
+---
+
+- name: Import check plays
+  import_playbook: checks.yml
+  tags: checks
+
+- name: Install requirements
+  import_playbook: install_requirements.yml
+  tags: requirements
+
+- name: Namespace declaration
+  import_playbook: namespace.yml
+  tags: namespace
+
+- name: Install keystone
+  import_playbook: keystone.yml
+  tags: keystone
+
+- name: Install conscience
+  import_playbook: conscience.yml
+  tags: conscience
+
+...

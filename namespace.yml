@@ -1,0 +1,41 @@
+---
+- name: Install OpenIO Conscience
+  hosts: all
+  gather_facts: false
+  become: true
+  vars_files:
+    - vars/namespace.yml
+    - vars/defaults.yml
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  tasks:
+    - name: Create the 'openio' group
+      group:
+        name: openio
+        gid: "{{ openio_group_openio_gid }}"
+
+    - name: Create the 'openio' user
+      user:
+        name: openio
+        comment: "openio account"
+        uid: "{{ openio_user_openio_uid }}"
+        group: openio
+
+    - name: Ensure directories exists
+      file:
+        path: "/etc/oio/sds.conf.d"
+        owner: openio
+        group: openio
+        state: directory
+        mode: 0755
+
+    - name: 'Install configuration files'
+      template:
+        src: namespace.j2
+        dest: "/etc/oio/sds.conf.d/{{ namespace }}"
+        owner: openio
+        group: openio
+        mode: '0644'
+...

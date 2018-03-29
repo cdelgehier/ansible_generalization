@@ -1,0 +1,38 @@
+---
+# This is used to manage Ansible role dependences
+# http://docs.ansible.com/galaxy.html#installing-multiple-roles-from-a-file
+# Install with: `ansible-galaxy install -p roles -r requirements.yml`
+
+
+- src: https://github.com/geerlingguy/ansible-role-ntp
+  version: master
+  name: ntp
+
+- src: https://github.com/geerlingguy/ansible-role-repo-epel
+  version: master
+  name: epel
+
+- src: https://github.com/open-io/ansible-role-openio-repository.git
+  version: master
+  name: repository
+
+- src: https://github.com/open-io/ansible-role-openio-gridinit.git
+  version: master
+  name: gridinit
+
+- src: https://github.com/cdelgehier/ansible-role-openio-conscience.git
+  version: master                                                               
+  name: conscience
+
+- src: https://github.com/bertvv/ansible-role-mariadb.git
+  version: master
+  name: mariadb
+
+- src: https://github.com/open-io/ansible-role-openio-memcached.git
+  version: master
+  name: memcached
+
+- src: https://github.com/cdelgehier/ansible-role-openio-keystone.git
+  version: master
+  name: keystone
+...

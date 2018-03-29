@@ -1,0 +1,25 @@
+---
+# Namespace
+namespace: TESTCDE
+namespace_conscience:
+  address: "127.0.0.1:6000"
+namespace_zookeeper:
+  address: "172.30.128.2:6005"
+namespace_oioproxy:
+  address: "127.0.0.1:6006"
+namespace_eventagent:
+  address: "beanstalk://127.0.0.1:6014"
+namespace_meta1_digits: 3
+namespace_udp_allowed: "yes"
+namespace_storage_policy: THREECOPIES
+namespace_chunk_size_megabytes: 10
+namespace_service_update_policy:
+  - name: meta2
+    policy: KEEP
+    replicas: 3
+    distance: 1
+  - name: rdir
+    policy: KEEP
+    replicas: 3
+    distance: 1
+...

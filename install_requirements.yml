@@ -1,0 +1,16 @@
+---
+- name: Install requirements
+  hosts: all
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is defined
+
+  roles:
+    - role: epel
+      when: ansible_os_family == 'RedHat' and ansible_distribution != 'Fedora'
+
+    - role: ntp
+...

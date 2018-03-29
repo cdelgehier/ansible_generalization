@@ -1,0 +1,113 @@
+---
+- name: temporaire - Install keystone's external database
+  hosts: db
+  gather_facts: false
+  vars_files:
+    - vars/keystone.yml
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: mariadb
+      mariadb_bind_address: "{{ ansible_default_ipv4.address }}"
+      mariadb_root_password: "{{ keystone_mysql_rootuser_password }}"
+      mariadb_databases:
+        - name: keystone
+      mariadb_users:
+        - name: keystone
+          password: "{{ keystone_mysql_keystoneuser_password }}"
+          priv: 'keystone.*:ALL'
+          host: '%'
+      
+        - name: keystone
+          password: "{{ keystone_mysql_keystoneuser_password }}"
+          priv: '*.*:SUPER'
+          append_privs: yes
+          host: '%'
+      when: sql_engine == 'mysql' and ansible_os_family == 'RedHat'
+
+
+- name: Install Openstack Keystone
+  hosts: "{{ 'keystone' if 'keystone' in groups else 'all' }}"
+  gather_facts: false
+  become: true
+  vars_files:
+    - vars/defaults.yml
+    - vars/namespace.yml
+    - vars/keystone.yml
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: repository
+    - role: gridinit
+      openio_gridinit_services:
+        - name: memcached-0
+          namespace: "{{ namespace }}"
+          type: memcached
+          configuration:
+            command: "/usr/bin/memcached -m 64 -p {{ memcached_port }} -u openio -l 127.0.0.1 -c 1024 -U 0"
+            enabled: true
+            start_at_boot: true
+            on_die: respawn
+            uid: openio
+            gid: openio
+            env_PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+        - name: keystone-wsgi-public
+          namespace: "{{ namespace }}"
+          type: keystone
+          configuration:
+            command: "{{ '/usr/bin/uwsgi --ini /etc/uwsgi' if ansible_os_family == 'Debian' else '/usr/sbin/uwsgi --ini /etc/uwsgi.d' }}/keystone-wsgi-public.ini"
+            enabled: true
+            start_at_boot: true
+            on_die: respawn
+            uid: root
+            gid: root
+            env_PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+        - name: keystone-wsgi-admin
+          namespace: "{{ namespace }}"
+          type: keystone
+          configuration:
+            command: "{{ '/usr/bin/uwsgi --ini /etc/uwsgi'  if ansible_os_family == 'Debian' else '/usr/sbin/uwsgi --ini /etc/uwsgi.d' }}/keystone-wsgi-admin.ini"
+            enabled: true
+            start_at_boot: true
+            on_die: respawn
+            uid: root
+            gid: root
+            env_PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+    - role: memcached
+      openio_memcached_namespace: "{{ namespace }}"
+
+    - role: keystone
+      openio_keystone_repo_managed: true
+      openio_keystone_config_cache_memcache_servers: >-
+        "127.0.0.1:{{ memcached_port }}"
+      openio_keystone_wsgi_processes: 2
+      openio_keystone_nodes_group: all
+      # openio_keystone_nodes_group: >-
+      #   "{{ 'keystone' if 'keystone' in groups else 'all' }}"
+      #openio_keystone_bootstrap_all_nodes: false
+      when: sql_engine == 'sqlite'
+
+    - role: keystone
+      openio_keystone_repo_managed: true
+      openio_keystone_config_cache_memcache_servers: >-
+        "127.0.0.1:{{ memcached_port }}"
+      openio_keystone_database_engine: mysql
+      openio_keystone_database_mysql_connection_user: keystone
+      openio_keystone_database_mysql_connection_password: >-
+        "{{ keystone_mysql_keystoneuser_password }}"
+      openio_keystone_database_mysql_connection_address: 127.0.0.1
+      openio_keystone_database_mysql_connection_database: keystone
+      #openio_keystone_bootstrap_all_nodes: false
+      openio_keystone_wsgi_processes: 2
+      #openio_keystone_nodes_group: "{{ 'keystone' if 'keystone' in groups else 'all' }}"
+      openio_keystone_nodes_group: all
+      when: sql_engine == 'mysql'
+...
