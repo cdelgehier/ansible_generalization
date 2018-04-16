@@ -1,6 +1,6 @@
 ---
-- name: Install OpenIO Conscience
-  hosts: conscience
+- name: Install OpenIO Meta1
+  hosts: meta1
   gather_facts: false
   become: true
   vars_files:
@@ -14,8 +14,6 @@
     - role: repository
     - role: gridinit
       openio_gridinit_namespace: "{{ namespace }}"
-    - role: conscience
-      openio_conscience_namespace: "{{ namespace }}"
-      openio_conscience_namespace_status: "standalone"
-      openio_conscience_bind_port: "{{ conscience_port }}"
+    - role: meta1
+      openio_meta1_namespace: "{{ namespace }}"
 ...

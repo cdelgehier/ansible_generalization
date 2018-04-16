@@ -12,6 +12,10 @@
   import_playbook: namespace.yml
   tags: namespace
 
+- name: Install gridinit
+  import_playbook: gridinit.yml
+  tags: gridinit
+
 - name: Install keystone
   import_playbook: keystone.yml
   tags: keystone
@@ -19,5 +23,10 @@
 - name: Install conscience
   import_playbook: conscience.yml
   tags: conscience
+
+- name: Install meta1
+  import_playbook: meta1.yml
+  tags: meta1
+
 
 ...

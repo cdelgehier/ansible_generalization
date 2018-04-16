@@ -1,0 +1,15 @@
+---
+- name: Install Gridinit
+  hosts: all
+  gather_facts: false
+  become: true
+  vars_files:
+    - vars/defaults.yml
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: repository
+    - role: gridinit
+...

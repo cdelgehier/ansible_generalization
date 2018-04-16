@@ -20,9 +20,25 @@
   version: master
   name: gridinit
 
-- src: https://github.com/cdelgehier/ansible-role-openio-conscience.git
-  version: master                                                               
+- src: https://github.com/open-io/ansible-role-openio-conscience.git
+  version: master
   name: conscience
+
+- src: https://github.com/cdelgehier/ansible-role-openio-oioproxy.git
+  version: master
+  name: oioproxy
+-
+#- src: https://github.com/cdelgehier/ansible-role-openio-meta0.git
+#  version: master
+#  name: meta0
+- src: https://github.com/cdelgehier/ansible-role-openio-meta1.git
+  version: master
+  name: meta1
+#- src: https://github.com/cdelgehier/ansible-role-openio-meta2.git
+#  version: master
+#  name: meta2
+
+
 
 - src: https://github.com/bertvv/ansible-role-mariadb.git
   version: master

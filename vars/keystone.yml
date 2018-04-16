@@ -11,7 +11,7 @@ openio_keystone_services_to_bootstrap:
     internalurl: "http://{{ ansible_default_ipv4.address }}:5000"
 
 sql_engine: sqlite
-keystone_mysql_rootuser_password: toto                                      
-keystone_mysql_keystoneuser_password: foo                                   
-keystone_admin_password: bar 
+keystone_mysql_rootuser_password: toto
+keystone_mysql_keystoneuser_password: foo
+keystone_admin_password: bar
 ...
