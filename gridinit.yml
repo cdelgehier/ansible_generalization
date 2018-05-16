@@ -1,6 +1,6 @@
 ---
 - name: Install Gridinit
-  hosts: all
+  hosts: openio
   gather_facts: false
   become: true
   vars_files:
@@ -10,6 +10,5 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: repository
     - role: gridinit
 ...

@@ -24,9 +24,25 @@
   import_playbook: conscience.yml
   tags: conscience
 
+- name: Install conscience agent
+  import_playbook: conscienceagent.yml
+  tags: conscienceagent
+
+- name: Install Proxy OIO
+  import_playbook: oioproxy.yml
+  tags: oioproxy
+
+- name: Install meta0
+  import_playbook: meta0.yml
+  tags: meta0
+
 - name: Install meta1
   import_playbook: meta1.yml
   tags: meta1
+
+- name: Install meta2
+  import_playbook: meta2.yml
+  tags: meta2
 
 
 ...

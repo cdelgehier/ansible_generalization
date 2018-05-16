@@ -1,6 +1,6 @@
 ---
 - name: Install OpenIO Conscience
-  hosts: all
+  hosts: openio
   gather_facts: false
   become: true
   vars_files:

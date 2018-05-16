@@ -11,9 +11,6 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: repository
-    - role: gridinit
-      openio_gridinit_namespace: "{{ namespace }}"
     - role: conscience
       openio_conscience_namespace: "{{ namespace }}"
       openio_conscience_namespace_status: "standalone"

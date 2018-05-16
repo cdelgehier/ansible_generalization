@@ -30,7 +30,7 @@
 
 
 - name: Install Openstack Keystone
-  hosts: "{{ 'keystone' if 'keystone' in groups else 'all' }}"
+  hosts: fronts
   gather_facts: false
   become: true
   vars_files:
@@ -42,8 +42,6 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: repository
-    - role: gridinit
     - role: memcached
       openio_memcached_namespace: "{{ namespace }}"
       openio_memcached_serviceid: "0"
@@ -53,14 +51,13 @@
     - role: keystone
       openio_keystone_bind_interface: "{{ ansible_default_ipv4.alias }}"
       openio_keystone_namespace: "{{ namespace }}"
-      openio_keystone_nodes_group: "{{ 'keystone' if 'keystone' in groups else 'all' }}"
+      openio_keystone_nodes_group: "fronts"
       openio_keystone_config_cache_memcache_servers: "127.0.01:6019"
       openio_keystone_database_engine: mysql
       #openio_keystone_database_mysql_connection_user: keystone
       openio_keystone_database_mysql_connection_password: "{{ keystone_mysql_keystoneuser_password }}"
       openio_keystone_database_mysql_connection_address: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | first }}"
       #openio_keystone_database_mysql_connection_database: keystone
-      openio_keystone_bind_interface: "{{ ansible_default_ipv4.alias }}"
       #openio_keystone_config_cache_memcache_servers: "127.0.01:6019"
       openio_keystone_services_to_bootstrap:
         - name: keystone

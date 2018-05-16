@@ -24,21 +24,28 @@
   version: master
   name: conscience
 
-- src: https://github.com/cdelgehier/ansible-role-openio-oioproxy.git
+- src: https://github.com/open-io/ansible-role-openio-conscienceagent.git
+  version: master
+  name: conscienceagent
+
+- src: https://github.com/open-io/ansible-role-openio-account.git
+  version: master
+    name: account
+
+- src: https://github.com/open-io/ansible-role-openio-oioproxy.git
   version: master
   name: oioproxy
--
-#- src: https://github.com/cdelgehier/ansible-role-openio-meta0.git
-#  version: master
-#  name: meta0
-- src: https://github.com/cdelgehier/ansible-role-openio-meta1.git
+
+- src: https://github.com/open-io/ansible-role-openio-meta0.git
+  version: master
+  name: meta0
+- src: https://github.com/open-io/ansible-role-openio-meta1.git
   version: master
   name: meta1
-#- src: https://github.com/cdelgehier/ansible-role-openio-meta2.git
-#  version: master
-#  name: meta2
 
-
+- src: https://github.com/open-io/ansible-role-openio-meta2.git
+  version: master
+  name: meta2
 
 - src: https://github.com/bertvv/ansible-role-mariadb.git
   version: master
@@ -48,7 +55,11 @@
   version: master
   name: memcached
 
-- src: https://github.com/cdelgehier/ansible-role-openio-keystone.git
+- src: https://github.com/open-io/ansible-role-openio-keystone.git
   version: master
   name: keystone
+
+- src: https://github.com/open-io/ansible-role-openio-redis.git
+  version: master
+    name: redis
 ...

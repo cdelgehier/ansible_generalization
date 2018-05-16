@@ -1,6 +1,6 @@
 ---
-- name: Install OpenIO Meta1
-  hosts: meta1
+- name: Install Conscience Agent
+  hosts: openio
   gather_facts: false
   become: true
   vars_files:
@@ -11,6 +11,8 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: meta1
-      openio_meta1_namespace: "{{ namespace }}"
+    - role: conscienceagent
+      openio_conscienceagent_namespace: "{{ namespace }}"
+...    
+
 ...

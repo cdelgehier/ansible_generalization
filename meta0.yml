@@ -1,6 +1,6 @@
 ---
-- name: Install OpenIO Meta1
-  hosts: meta1
+- name: Install OpenIO Meta0
+  hosts: meta0
   gather_facts: false
   become: true
   vars_files:
@@ -11,6 +11,6 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: meta1
-      openio_meta1_namespace: "{{ namespace }}"
+    - role: meta0
+      openio_meta0_namespace: "{{ namespace }}"
 ...

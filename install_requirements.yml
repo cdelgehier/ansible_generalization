@@ -9,8 +9,7 @@
       when: ansible_default_ipv4 is defined
 
   roles:
-    - role: epel
-      when: ansible_os_family == 'RedHat' and ansible_distribution != 'Fedora'
-
+    - role: repository
     - role: ntp
+    - role: survivalkit
 ...
