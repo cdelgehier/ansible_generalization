@@ -1,0 +1,12 @@
+FROM cdelgehier/docker_images_ansible:2.5_centos_7
+
+RUN yum install -y openssh-server
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
+RUN echo root:centos | chpasswd
+RUN useradd centos -G wheel -s /bin/bash -m
+RUN echo centos:passw| chpasswd
+RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+ADD id_rsa.pub /root/.ssh/authorized_keys
+ADD id_rsa.pub /home/centos/.ssh/authorized_keys
+

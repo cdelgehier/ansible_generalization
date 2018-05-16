@@ -1,0 +1,14 @@
+FROM cdelgehier/docker_images_ansible:2.5_debian_9
+
+RUN apt update && apt install -y openssh-server sudo systemd-sysv
+RUN mkdir /var/run/sshd
+
+RUN echo 'root:root' |chpasswd
+RUN echo root:ubuntu | chpasswd
+RUN useradd debian -G sudo -s /bin/bash -m
+RUN echo ubuntu:passw| chpasswd
+RUN echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+ADD id_rsa.pub /root/.ssh/authorized_keys
+ADD id_rsa.pub /home/debian/.ssh/authorized_keys
+RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
