@@ -1,0 +1,19 @@
+---
+mariadb_bind_address: "{{ ansible_default_ipv4.address }}"
+mariadb_root_password: "rootdb"
+keystone_user_password: "foo"
+
+mariadb_databases:
+  - name: keystone
+
+mariadb_users:
+  - name: keystone
+    password: "{{ keystone_user_password }}"
+    priv: 'keystone.*:ALL'
+    host: '%'
+
+  - name: keystone
+    password: "{{ keystone_user_password }}"
+    priv: '*.*:SUPER'
+    append_privs: "yes"
+    host: '%'

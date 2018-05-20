@@ -1,0 +1,4 @@
+---
+openio_conscience_namespace_status: "standalone"
+openio_conscience_bind_port: 6000
+...

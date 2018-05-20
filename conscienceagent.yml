@@ -3,9 +3,6 @@
   hosts: openio
   gather_facts: false
   become: true
-  vars_files:
-    - vars/defaults.yml
-    - vars/namespace.yml
   pre_tasks:
     - name: refresh facts
       setup:
@@ -13,6 +10,7 @@
   roles:
     - role: conscienceagent
       openio_conscienceagent_namespace: "{{ namespace }}"
+      openio_conscienceagent_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...    
 
 ...

@@ -2,8 +2,6 @@
 - name: temporaire - Install keystone's external database
   hosts: db
   gather_facts: false
-  vars_files:
-    - vars/keystone.yml
   become: true
   pre_tasks:
     - name: refresh facts
@@ -11,32 +9,13 @@
       when: ansible_default_ipv4 is not defined
   roles:
     - role: mariadb
-      mariadb_bind_address: "{{ ansible_default_ipv4.address }}"
-      mariadb_root_password: "{{ keystone_mysql_rootuser_password }}"
-      mariadb_databases:
-        - name: keystone
-      mariadb_users:
-        - name: keystone
-          password: "{{ keystone_mysql_keystoneuser_password }}"
-          priv: 'keystone.*:ALL'
-          host: '%'
-
-        - name: keystone
-          password: "{{ keystone_mysql_keystoneuser_password }}"
-          priv: '*.*:SUPER'
-          append_privs: "yes"
-          host: '%'
       #when: sql_engine == 'mysql' and ansible_os_family == 'RedHat'
 
 
 - name: Install Openstack Keystone
-  hosts: fronts
+  hosts: keystone
   gather_facts: false
   become: true
-  vars_files:
-    - vars/defaults.yml
-    - vars/namespace.yml
-    - vars/keystone.yml
   pre_tasks:
     - name: refresh facts
       setup:
@@ -44,42 +23,9 @@
   roles:
     - role: memcached
       openio_memcached_namespace: "{{ namespace }}"
-      openio_memcached_serviceid: "0"
-      openio_memcached_bind_address: 127.0.0.1
-      openio_memcached_bind_port: "{{ memcached_port }}"
+      openio_memcached_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 
     - role: keystone
-      openio_keystone_bind_interface: "{{ ansible_default_ipv4.alias }}"
       openio_keystone_namespace: "{{ namespace }}"
-      openio_keystone_nodes_group: "fronts"
-      openio_keystone_config_cache_memcache_servers: "127.0.01:6019"
-      openio_keystone_database_engine: mysql
-      #openio_keystone_database_mysql_connection_user: keystone
-      openio_keystone_database_mysql_connection_password: "{{ keystone_mysql_keystoneuser_password }}"
-      openio_keystone_database_mysql_connection_address: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | first }}"
-      #openio_keystone_database_mysql_connection_database: keystone
-      #openio_keystone_config_cache_memcache_servers: "127.0.01:6019"
-      openio_keystone_services_to_bootstrap:
-        - name: keystone
-          user: admin
-          password: "{{ keystone_mysql_keystoneuser_password }}"
-          project: admin
-          role: admin
-          regionid: RegionOne
-          # eventually a VIP
-          adminurl: "http://{{ ansible_default_ipv4.address }}:35357"
-          publicurl: "http://{{ ansible_default_ipv4.address }}:5000"
-          internalurl: "http://{{ ansible_default_ipv4.address }}:5000"
-      openio_keystone_services:
-        - name: openio-swift
-          type: object-store
-          description: OpenIO SDS swift proxy
-          endpoint:
-            # eventually a VIP
-            - interface: admin
-              url: "http://{{ ansible_default_ipv4.address }}:6007/v1/AUTH_%(tenant_id)s"
-            - interface: internal
-              url: "http://{{ ansible_default_ipv4.address }}:6007/v1/AUTH_%(tenant_id)s"
-            - interface: public
-              url: "http://{{ ansible_default_ipv4.address }}:6007/v1/AUTH_%(tenant_id)s"
+      openio_keystone_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

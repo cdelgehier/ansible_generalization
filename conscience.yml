@@ -3,9 +3,6 @@
   hosts: conscience
   gather_facts: false
   become: true
-  vars_files:
-    - vars/defaults.yml
-    - vars/namespace.yml
   pre_tasks:
     - name: refresh facts
       setup:
@@ -13,6 +10,5 @@
   roles:
     - role: conscience
       openio_conscience_namespace: "{{ namespace }}"
-      openio_conscience_namespace_status: "standalone"
-      openio_conscience_bind_port: "{{ conscience_port }}"
+      openio_conscience_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

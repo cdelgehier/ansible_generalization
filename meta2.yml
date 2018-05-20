@@ -3,9 +3,6 @@
   hosts: meta2
   gather_facts: false
   become: true
-  vars_files:
-    - vars/defaults.yml
-    - vars/namespace.yml
   pre_tasks:
     - name: refresh facts
       setup:
@@ -13,4 +10,5 @@
   roles:
     - role: meta2
       openio_meta2_namespace: "{{ namespace }}"
+      openio_meta2_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

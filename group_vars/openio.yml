@@ -1,15 +1,15 @@
 ---
 # Namespace
-namespace: OPENIO
+namespace: TESTCDE
 namespace_conscience:
-  address: "127.0.0.1:6000"
+  address: 172.17.0.3:6000
 namespace_zookeeper:
-  address: "172.30.128.2:6005"
+  address: ""
 namespace_oioproxy:
   address: "{{ ansible_default_ipv4.address }}:6006"
 namespace_eventagent:
   address: "beanstalk://{{ ansible_default_ipv4.address }}:6014"
-namespace_meta1_digits: 3
+namespace_meta1_digits: 2
 namespace_udp_allowed: "yes"
 namespace_storage_policy: THREECOPIES
 namespace_chunk_size_megabytes: 10

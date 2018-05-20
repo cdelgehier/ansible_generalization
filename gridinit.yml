@@ -3,8 +3,6 @@
   hosts: openio
   gather_facts: false
   become: true
-  vars_files:
-    - vars/defaults.yml
   pre_tasks:
     - name: refresh facts
       setup:

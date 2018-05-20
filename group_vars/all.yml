@@ -1,0 +1,11 @@
+---
+# Set to true to allow pre-checks to fail and continue deployment
+openio_ignore_assert_errors: false
+
+# Set of linux distribution supported
+openio_distribution_supported: ['RedHat', 'CentOS', 'Fedora', 'Ubuntu']
+
+# openio's GID
+openio_group_openio_gid: 220
+# openio's UID
+openio_user_openio_uid: 120
