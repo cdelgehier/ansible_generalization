@@ -30,7 +30,7 @@
 
 - src: https://github.com/open-io/ansible-role-openio-account.git
   version: master
-    name: account
+  name: account
 
 - src: https://github.com/open-io/ansible-role-openio-oioproxy.git
   version: master
@@ -61,5 +61,5 @@
 
 - src: https://github.com/open-io/ansible-role-openio-redis.git
   version: master
-    name: redis
+  name: redis
 ...

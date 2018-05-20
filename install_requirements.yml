@@ -11,5 +11,5 @@
   roles:
     - role: repository
     - role: ntp
-    - role: survivalkit
+#    - role: survivalkit
 ...
