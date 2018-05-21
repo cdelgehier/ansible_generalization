@@ -1,0 +1,14 @@
+# roles/meta2/defaults/main.yml
+---
+openio_meta2_namespace: "OPENIO"
+openio_meta2_serviceid: "0"
+
+openio_meta2_bind_address: "{{ ansible_default_ipv4.address }}"
+openio_meta2_bind_port: 6003
+openio_meta2_volume: "/var/lib/oio/sds/{{ openio_meta2_namespace }}/meta2-{{ openio_meta2_serviceid }}"
+
+openio_meta2_options: []
+#  - meta2.outgoing.timeout.common.req=10.000000
+
+openio_meta2_location: "{{ ansible_hostname }}"
+...

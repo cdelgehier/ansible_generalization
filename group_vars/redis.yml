@@ -1,0 +1,7 @@
+---
+openio_redis_namespace: "{{ NS }}"
+openio_redis_bind_interface: "{{ openio_bind_interface }}"
+openio_redis_master:
+  address: "{{ hostvars[ groups['redis'][0] ]['ansible_' + openio_bind_interface ]['ipv4']['address'] }}"
+  port: 6011
+...

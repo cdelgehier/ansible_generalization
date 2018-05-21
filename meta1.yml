@@ -8,7 +8,9 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: meta1
-      openio_meta1_namespace: "{{ namespace }}"
-      openio_meta1_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+    - role: meta
+      openio_meta_namespace: "{{ namespace }}"
+      openio_meta_mode: meta1
+      openio_meta_version: "{{ openio_sds_version }}"
+      #openio_meta_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

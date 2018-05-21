@@ -1,14 +1,15 @@
 ---
-# Default inteface or a bonding interface
 openio_keystone_nodes_group: keystone
-openio_keystone_bind_interface: "{{ ansible_default_ipv4.alias }}"
+openio_keystone_bind_interface: "{{ openio_bind_interface }}"
 openio_keystone_bind_virtual_address: "172.17.0.100"
+
 openio_keystone_namespace: "{{ namespace }}"
 openio_keystone_cloudname: "{{ namespace }}"
 
-openio_keystone_config_cache_memcache_servers: "{{ hostvars[inventory_hostname]['ansible_' + openio_keystone_bind_interface]['ipv4']['address'] }}:6019"
-openio_memcached_serviceid: "0"
-openio_memcached_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + openio_keystone_bind_interface]['ipv4']['address'] }}"
+openio_keystone_config_cache_memcache_servers: "{{ groups['keystone'] | map('extract', hostvars, ['ansible_'  + openio_bind_interface, 'ipv4', 'address']) | join(':6019,') }}:6019"
+
+#Memcached's keystone
+openio_memcached_bind_interface: "{{ openio_bind_interface }}"
 
 openio_keystone_services_to_bootstrap:
   - name: keystone

@@ -1,0 +1,9 @@
+---
+openio_meta2_sysconfig_dir: "/etc/oio/sds/{{ openio_meta2_namespace }}"
+openio_meta2_servicename: "meta2-{{ openio_meta2_serviceid }}"
+
+openio_meta2_definition_file: >
+  "{{ openio_meta2_sysconfig_dir }}/
+  {{ openio_meta2_servicename }}/{{ openio_meta2_servicename }}.conf"
+openio_meta2_gridinit_dir: "/etc/gridinit.d/{{ openio_meta2_namespace }}"
+...

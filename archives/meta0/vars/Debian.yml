@@ -1,0 +1,6 @@
+# roles/meta0/vars/Debian.yml
+# Distribution-specific variables for Ubuntu, Debian, ...
+---
+meta0_packages:
+  - openio-sds
+...

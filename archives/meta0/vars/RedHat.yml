@@ -1,0 +1,6 @@
+# roles/meta0/vars/RedHat.yml
+# Distribution-specific variables for RHEL, CentOS, ...
+---
+meta0_packages:
+  - openio-sds-server
+...

@@ -9,7 +9,6 @@
       when: ansible_default_ipv4 is not defined
   roles:
     - role: mariadb
-      #when: sql_engine == 'mysql' and ansible_os_family == 'RedHat'
 
 
 - name: Install Openstack Keystone
@@ -23,9 +22,9 @@
   roles:
     - role: memcached
       openio_memcached_namespace: "{{ namespace }}"
-      openio_memcached_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+      #openio_memcached_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 
     - role: keystone
       openio_keystone_namespace: "{{ namespace }}"
-      openio_keystone_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+      #openio_keystone_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

@@ -1,5 +1,4 @@
 ---
-
 - name: Import check plays
   import_playbook: checks.yml
   tags: checks
@@ -24,10 +23,6 @@
   import_playbook: conscience.yml
   tags: conscience
 
-- name: Install conscience agent
-  import_playbook: conscienceagent.yml
-  tags: conscienceagent
-
 - name: Install Proxy OIO
   import_playbook: oioproxy.yml
   tags: oioproxy
@@ -43,6 +38,14 @@
 - name: Install meta2
   import_playbook: meta2.yml
   tags: meta2
+
+- name: Install redis
+  import_playbook: redis.yml
+  tags: redis
+
+- name: Install conscience agent
+  import_playbook: conscienceagent.yml
+  tags: conscienceagent
 
 
 ...

@@ -1,0 +1,9 @@
+---
+- name: Install packages
+  package:
+    name: "{{ pkg }}"
+    state: installed
+  with_items: "{{ meta2_packages }}"
+  loop_control:
+    loop_var: pkg
+...

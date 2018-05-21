@@ -1,0 +1,86 @@
+# roles/meta2/tasks/main.yml
+---
+- name: "Include {{ ansible_distribution }} variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags: install
+
+- name: Create the 'openio' group
+  group:
+    name: openio
+    gid: "{{ openio_group_openio_gid | default('220')}}"
+  tags: install
+
+- name: Create the 'openio' user
+  user:
+    name: openio
+    comment: "openio account"
+    uid: "{{ openio_user_openio_uid | default('120')}}"
+    group: openio
+  tags: install
+
+- name: "Include {{ ansible_distribution }} tasks"
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags: install
+
+- name: Test directories presence
+  stat:
+    path: "{{ item }}"
+  register: _dir
+  with_items:
+    - "/etc/gridinit.d/{{ openio_meta2_namespace }}"
+    - "{{ openio_meta2_sysconfig_dir }}/meta2-{{ openio_meta2_serviceid }}"
+    - "{{ openio_meta2_volume }}"
+    - "/etc/oio/sds/{{ openio_meta2_namespace }}/watch"
+
+- name: Ensure directories exists
+  file:
+    path: "{{ item.item }}"
+    state: directory
+    owner: openio
+    group: openio
+    mode: 0755
+    recurse: true
+  with_items: "{{ _dir.results }}"
+  when: not item.stat.exists
+  tags: install
+
+- name: Generate configuration files
+  template:
+    src: meta2.conf.j2
+    dest: "{{ openio_meta2_sysconfig_dir }}/meta2-{{ openio_meta2_serviceid }}/meta2-{{ openio_meta2_serviceid }}.conf"
+    owner: openio
+    group: openio
+    mode: 0644
+  tags: install
+  register: _meta2_conf
+
+- name: Generate configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: openio
+    group: openio
+    mode: 0644
+  with_items:
+    - src: "meta2.conf.j2"
+      dest: "{{ openio_meta2_sysconfig_dir }}/\
+        meta2-{{ openio_meta2_serviceid }}/meta2-{{ openio_meta2_serviceid }}.conf"
+    - src: "gridinit_meta2.conf.j2"
+      dest: "{{ openio_meta2_gridinit_dir }}/meta2-{{ openio_meta2_serviceid }}.conf"
+    - src: "watch-meta2.yml.j2"
+      dest: "{{ openio_meta2_sysconfig_dir }}/watch/meta2-{{ openio_meta2_serviceid }}.yml"
+  register: _meta2_conf
+
+- name: restart meta2
+  shell: |
+    gridinit_cmd reload
+    gridinit_cmd restart  {{openio_meta2_namespace}}-meta2-{{openio_meta2_serviceid}}
+  when: _meta2_conf.changed
+  tags: configure
+...

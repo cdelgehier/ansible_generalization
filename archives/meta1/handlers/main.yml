@@ -1,0 +1,8 @@
+# roles/meta1/handlers/main.yml
+---
+#- name: restart meta1
+#  service:
+#    name: "{{ meta1_service }}"
+#    state: restarted
+#
+...

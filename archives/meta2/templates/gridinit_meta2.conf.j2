@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+[Service.{{ openio_meta2_namespace }}-meta2-{{ openio_meta2_serviceid }}]
+command=/usr/bin/oio-meta2-server -p /run/oio/sds/{{ openio_meta2_namespace }}-meta2-{{ openio_meta2_serviceid }}.pid -s OIO,{{ openio_meta2_namespace }},meta2,{{ openio_meta2_serviceid }} -O Endpoint={{ openio_meta2_bind_address }}:{{ openio_meta2_bind_port }}  -O Config=/etc/oio/sds/{{ openio_meta2_namespace }}/meta2-{{ openio_meta2_serviceid }}/meta2-{{ openio_meta2_serviceid }}.conf {{ openio_meta2_namespace }} {{ openio_meta2_volume }} 
+enabled=true
+start_at_boot=true
+on_die=respawn
+group={{ openio_meta2_namespace }},meta2,{{ openio_meta2_serviceid }}
+uid=openio
+gid=openio
+env.PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin

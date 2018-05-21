@@ -1,10 +1,10 @@
 # {{ ansible_managed }}
 [{{ namespace }}]
 # endpoints
-conscience={{ namespace_address | default(namespace_conscience.address) }}
-zookeeper={{ zookeepers_address | default(namespace_zookeeper.address) }}
-proxy={{ oioproxy_address | default(namespace_oioproxy.address) }}
-event-agent={{ eventagent_address | default(namespace_eventagent.address) }}
+conscience={{ namespace_conscience.address }}
+{{ '#' if not namespace_zookeeper.address  else '' }}zookeeper={{ namespace_zookeeper.address }}
+proxy={{ namespace_oioproxy.address }}
+event-agent={{ namespace_eventagent.address }}
 
 ns.meta1_digits={{ namespace_meta1_digits }}
 udp_allowed={{ namespace_udp_allowed }}

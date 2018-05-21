@@ -10,5 +10,5 @@
   roles:
     - role: conscienceagent
       openio_conscienceagent_namespace: "{{ namespace }}"
-      openio_conscienceagent_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+      #openio_conscienceagent_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...

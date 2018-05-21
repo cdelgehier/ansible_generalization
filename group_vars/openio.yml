@@ -1,4 +1,10 @@
 ---
+# Package repository to use
+openio_sds_release: "17.04"
+
+# SDS package version
+openio_sds_version: '*'
+
 # Namespace
 namespace: TESTCDE
 namespace_conscience:
@@ -22,4 +28,8 @@ namespace_service_update_policy:
     policy: KEEP
     replicas: 3
     distance: 1
+
+
+# Network
+openio_bind_interface: "{{ ansible_default_ipv4.alias }}"
 ...

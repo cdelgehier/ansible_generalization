@@ -36,16 +36,9 @@
   version: master
   name: oioproxy
 
-- src: https://github.com/open-io/ansible-role-openio-meta0.git
+- src: https://github.com/open-io/ansible-role-openio-meta.git
   version: master
-  name: meta0
-- src: https://github.com/open-io/ansible-role-openio-meta1.git
-  version: master
-  name: meta1
-
-- src: https://github.com/open-io/ansible-role-openio-meta2.git
-  version: master
-  name: meta2
+  name: meta
 
 - src: https://github.com/mjanser/ansible-role-mysql.git
   version: master
@@ -55,8 +48,11 @@
   version: master
   name: memcached
 
-- src: https://github.com/open-io/ansible-role-openio-keystone.git
-  version: master
+#- src: https://github.com/open-io/ansible-role-openio-keystone.git
+#  version: master
+#  name: keystone
+- src: https://github.com/cdelgehier/ansible-role-openio-keystone.git
+  version: e77bfeb85411b2ce05e2f195a51bd456681ca99e
   name: keystone
 
 - src: https://github.com/open-io/ansible-role-openio-redis.git

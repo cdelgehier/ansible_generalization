@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+[{{ openio_meta2_namespace }}]
+{% for option in openio_meta2_options %}
+{{ option }}
+{% endfor %} 

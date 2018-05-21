@@ -1,0 +1,17 @@
+---
+- name: Install redis nodes
+  hosts: redis
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: redis
+      openio_redis_namespace: "{{ namespace }}"
+    
+    - role: redis
+      openio_redis_mode: sentinel
+      openio_redis_namespace: "{{ namespace }}"
+...

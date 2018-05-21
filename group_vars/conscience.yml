@@ -1,4 +1,5 @@
 ---
+openio_conscience_bind_interface: "{{ openio_bind_interface }}"
 openio_conscience_namespace_status: "standalone"
 openio_conscience_bind_port: 6000
 ...

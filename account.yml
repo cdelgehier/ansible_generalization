@@ -1,0 +1,16 @@
+---
+- name: Install OpenIO Account
+  hosts: redis
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: account
+      openio_account_namespace: "{{ namespace }}"
+      openio_account_version: "{{ openio_sds_version }}"
+      #openio_account_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+      when: inventory_hostname == groups[redis][0]
+...

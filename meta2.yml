@@ -1,6 +1,6 @@
 ---
 - name: Install OpenIO Meta2
-  hosts: meta2
+  hosts: meta1
   gather_facts: false
   become: true
   pre_tasks:
@@ -8,7 +8,9 @@
       setup:
       when: ansible_default_ipv4 is not defined
   roles:
-    - role: meta2
-      openio_meta2_namespace: "{{ namespace }}"
-      openio_meta2_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+    - role: meta
+      openio_meta_namespace: "{{ namespace }}"
+      openio_meta_mode: meta2
+      openio_meta_version: "{{ openio_sds_version }}"
+      #openio_meta_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...
