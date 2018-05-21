@@ -9,3 +9,4 @@ openio_distribution_supported: ['RedHat', 'CentOS', 'Fedora', 'Ubuntu']
 openio_group_openio_gid: 220
 # openio's UID
 openio_user_openio_uid: 120
+...

@@ -1,6 +1,7 @@
 ---
-ignore:
-  roles/*/*/*
+ignore: |
+  roles
+  archives
 rules:
   braces:
     level: error
