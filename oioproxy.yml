@@ -11,6 +11,4 @@
     - role: oioproxy
       openio_oioproxy_namespace: "{{ namespace }}"
       openio_oioproxy_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
-...    
-
 ...

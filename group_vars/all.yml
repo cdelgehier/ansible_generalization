@@ -3,7 +3,7 @@
 openio_ignore_assert_errors: false
 
 # Set of linux distribution supported
-openio_distribution_supported: ['RedHat', 'CentOS', 'Fedora', 'Ubuntu']
+openio_distribution_supported: [ 'RedHat', 'CentOS', 'Fedora', 'Ubuntu' ]
 
 # openio's GID
 openio_group_openio_gid: 220

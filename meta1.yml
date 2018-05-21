@@ -11,3 +11,4 @@
     - role: meta1
       openio_meta1_namespace: "{{ namespace }}"
       openio_meta1_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
+...

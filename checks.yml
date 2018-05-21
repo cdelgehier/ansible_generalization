@@ -96,7 +96,7 @@
 
     - name: Check http_proxy variable
       assert:
-        that: 
+        that:
           - lookup('env', 'http_proxy') == ""
           - lookup('env', 'https_proxy') == ""
       ignore_errors: "{{ openio_ignore_assert_errors }}"
