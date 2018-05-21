@@ -47,7 +47,7 @@
   version: master
   name: meta2
 
-- src: https://github.com/bertvv/ansible-role-mariadb.git
+- src: https://github.com/mjanser/ansible-role-mysql.git
   version: master
   name: mariadb
 

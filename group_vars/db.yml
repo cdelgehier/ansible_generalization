@@ -1,19 +1,22 @@
 ---
-mariadb_bind_address: "{{ ansible_default_ipv4.address }}"
-mariadb_root_password: "rootdb"
-keystone_user_password: "foo"
+mysql_vendor: mysql
+mysql_origin: upstream
+mysql_bind_address: "{{ ansible_default_ipv4.address }}"
+mysql_import_timezones: false
+mysql_root_password: C3PO_R3d4rM
+keystone_user_password: F4lc0n_m1ll3n1um
 
-mariadb_databases:
+mysql_databases:
   - name: keystone
-
-mariadb_users:
+mysql_users:
   - name: keystone
     password: "{{ keystone_user_password }}"
-    priv: 'keystone.*:ALL'
+    privileges: 'keystone.*:ALL'
     host: '%'
 
   - name: keystone
     password: "{{ keystone_user_password }}"
-    priv: '*.*:SUPER'
-    append_privs: "yes"
+    privileges: '*.*:SUPER'
+    append_privileges: "yes"
     host: '%'
+...

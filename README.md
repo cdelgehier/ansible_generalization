@@ -1,7 +1,7 @@
-
+# Deploiement
 Le main include des playbook par servicetype ce qui permet de toujours lancé la meme commande mais en pouvant spécifié ou exclude des etapes
 
-Les Le deploiement est typé dans group_vars
+Le deploiement est typé dans group_vars
 
 Les codes ne doit pas levé d'erreur au `yamllint`et au `ansible-lint`
 
@@ -27,3 +27,5 @@ ansible-playbook -i inventory_centos.ini  main.yml --list-tags
 # plus clair
 grep tag main.yml
 ```
+
+
