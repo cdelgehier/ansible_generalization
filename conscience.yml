@@ -10,5 +10,6 @@
   roles:
     - role: conscience
       openio_conscience_namespace: "{{ namespace }}"
+      openio_conscience_version: "{{ openio_sds_version }}"
       #openio_conscience_serviceid: "{{ ansible_play_hosts.index(inventory_hostname) }}"
 ...
