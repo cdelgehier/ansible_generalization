@@ -1,21 +1,20 @@
 ---
 mysql_vendor: mysql
 mysql_origin: upstream
-mysql_bind_address: "{{ ansible_default_ipv4.address }}"
+mysql_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + openio_bind_interface]['ipv4']['address'] }}"
 mysql_import_timezones: false
-mysql_root_password: C3PO_R3d4rM
-keystone_user_password: F4lc0n_m1ll3n1um
+mysql_root_password: "{{ openio_database_root_password }}"
 
 mysql_databases:
   - name: keystone
 mysql_users:
   - name: keystone
-    password: "{{ keystone_user_password }}"
+    password: "{{ openio_database_keystone_password }}"
     privileges: 'keystone.*:ALL'
     host: '%'
 
   - name: keystone
-    password: "{{ keystone_user_password }}"
+    password: "{{ openio_database_keystone_password }}"
     privileges: '*.*:SUPER'
     append_privileges: "yes"
     host: '%'

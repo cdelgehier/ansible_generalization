@@ -1,6 +1,6 @@
 ---
 - name: Install Proxy OIO
-  hosts: openio
+  hosts: backs
   gather_facts: false
   become: true
   pre_tasks:

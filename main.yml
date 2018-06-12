@@ -39,9 +39,20 @@
   import_playbook: meta2.yml
   tags: meta2
 
+- name: Install ecd
+  import_playbook: ecd.yml
+  tags: ecd
+
+- name: Install oioswift
+  import_playbook: oioswift.yml
+  tags: oioswift
+
 - name: Install redis
   import_playbook: redis.yml
   tags: redis
+- name: Install account
+  import_playbook: account.yml
+  tags: account
 
 - name: Install conscience agent
   import_playbook: conscienceagent.yml

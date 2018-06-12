@@ -1,0 +1,15 @@
+---
+- name: Install ECD
+  hosts: backs
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: ecd
+      openio_ecd_namespace: "{{ namespace }}"
+      openio_ecd_version: "{{ openio_sds_version }}"
+
+...

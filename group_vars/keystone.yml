@@ -1,12 +1,14 @@
 ---
 openio_keystone_nodes_group: keystone
 openio_keystone_bind_interface: "{{ openio_bind_interface }}"
-openio_keystone_bind_virtual_address: "172.17.0.100"
+openio_keystone_bind_virtual_address: "{{ openio_bind_virtual_address }}"
 
 openio_keystone_namespace: "{{ namespace }}"
 openio_keystone_cloudname: "{{ namespace }}"
 
-openio_keystone_config_cache_memcache_servers: "{{ groups['keystone'] | map('extract', hostvars, ['ansible_'  + openio_bind_interface, 'ipv4', 'address']) | join(':6019,') }}:6019"
+openio_keystone_config_cache_memcache_servers:
+  "{{ groups['keystone'] | map('extract', hostvars, ['ansible_'  + openio_bind_interface, 'ipv4', 'address'])\
+  | join(':6019,') }}:6019"
 
 #Memcached's keystone
 openio_memcached_bind_interface: "{{ openio_bind_interface }}"
@@ -14,7 +16,7 @@ openio_memcached_bind_interface: "{{ openio_bind_interface }}"
 openio_keystone_services_to_bootstrap:
   - name: keystone
     user: admin
-    password: "ADMIN_PASS"
+    password: "{{ openio_keystone_admin_password }}"
     project: admin
     role: admin
     regionid: RegionOne
@@ -29,7 +31,7 @@ openio_keystone_database_mysql_connection_address: "{{ hostvars[groups['db'][0]]
 
 openio_keystone_users:
   - name: demo
-    password: DEMO_PASS
+    password: "{{ openio_keystone_demo_password }}"
   - name: swift
-    password: SWIFT_PASS
+    password: "{{ openio_keystone_swift_password }}"
 ...

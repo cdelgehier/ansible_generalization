@@ -10,7 +10,7 @@
   roles:
     - role: redis
       openio_redis_namespace: "{{ namespace }}"
-    
+
     - role: redis
       openio_redis_mode: sentinel
       openio_redis_namespace: "{{ namespace }}"

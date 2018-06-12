@@ -58,4 +58,12 @@
 - src: https://github.com/open-io/ansible-role-openio-redis.git
   version: master
   name: redis
+
+- src: https://github.com/open-io/ansible-role-openio-ecd.git
+  version: master
+  name: ecd
+
+- src: https://github.com/open-io/ansible-role-openio-oioswift.git
+  version: master
+  name: oioswift
 ...

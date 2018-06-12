@@ -9,4 +9,6 @@ RUN echo centos:passw| chpasswd
 RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 ADD id_rsa.pub /root/.ssh/authorized_keys
 ADD id_rsa.pub /home/centos/.ssh/authorized_keys
+RUN chmod 600 /home/centos/.ssh/authorized_keys
+RUN chown centos: /home/centos/.ssh/authorized_keys
 

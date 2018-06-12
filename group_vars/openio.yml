@@ -3,7 +3,9 @@
 openio_sds_release: "17.04"
 
 # SDS package version
-openio_sds_version: '*'
+openio_sds_version: latest
+openio_swift_version: latest
+openio_swift_swift3_version: latest
 
 # Namespace
 namespace: TESTCDE
@@ -13,6 +15,8 @@ namespace_zookeeper:
   address: ""
 namespace_oioproxy:
   address: "{{ ansible_default_ipv4.address }}:6006"
+namespace_ecd:
+  address: "{{ ansible_default_ipv4.address }}:6017"
 namespace_eventagent:
   address: "beanstalk://{{ ansible_default_ipv4.address }}:6014"
 namespace_meta1_digits: 2
@@ -32,4 +36,13 @@ namespace_service_update_policy:
 
 # Network
 openio_bind_interface: "{{ ansible_default_ipv4.alias }}"
+openio_bind_virtual_address: "172.17.0.100"
+
+# Password
+openio_database_root_password: C3PO_R3d4rM
+openio_database_keystone_password: F4lc0n_m1ll3n1um
+openio_keystone_admin_password: ADMIN_PASS
+openio_keystone_swift_password: SWIFT_PASS
+openio_keystone_demo_password: DEMO_PASS
+
 ...

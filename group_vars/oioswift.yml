@@ -1,0 +1,41 @@
+---
+openio_oioswift_bind_interface: "{{ openio_bind_interface }}"
+#openio_oioswift_workers: 1
+openio_oioswift_pipeline: "{{ pipeline_keystone }}"
+openio_oioswift_sds_proxy_namespace: "{{ namespace }}"
+
+openio_oioswift_filter_authtoken:
+  paste.filter_factory: keystonemiddleware.auth_token:filter_factory
+  auth_type: password
+  auth_url: "http://{{ openio_bind_virtual_address }}:35357"
+  www_authenticate_uri: "http://{{ openio_bind_virtual_address }}:5000"
+  insecure: "True"
+  region_name: RegionOne
+  project_domain_id: default
+  user_domain_id: default
+  project_name: service
+  username: swift
+  password: "{{ hostvars[groups['keystone'][0]]['openio_keystone_users'] | selectattr('name', 'equalto', 'swift') |
+    map(attribute='password') | list | first }}"
+  delay_auth_decision: "True"
+  include_service_catalog: "False"
+  memcached_servers: "{{ groups['keystone'] |\
+    map('extract', hostvars, ['ansible_'  + openio_bind_interface, 'ipv4', 'address']) |\
+    join(':6019,') }}:6019"
+  cache: swift.cache
+  token_cache_time: 300
+  revocation_cache_time: 60
+  memcache_security_strategy: ENCRYPT
+  memcache_secret_key: memcache_secret_key
+
+openio_oioswift_filter_s3token:
+  use: "egg:swift3#s3token"
+  delay_auth_decision: "True"
+  auth_uri: "http://{{ openio_bind_virtual_address }}:35357/"
+
+openio_oioswift_filter_cache:
+  use: "egg:swift#memcache"
+  memcache_servers: "{{ groups['oioswift'] |\
+    map('extract', hostvars, ['ansible_'  + openio_bind_interface, 'ipv4', 'address']) |\
+    join(':6019,') }}:6019"
+...
