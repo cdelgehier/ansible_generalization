@@ -1,4 +1,5 @@
 ---
+# check des nom de machines (tous differents)
 - name: Check inventory
   hosts: localhost
   gather_facts: false

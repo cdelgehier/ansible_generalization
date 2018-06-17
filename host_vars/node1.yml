@@ -1,0 +1,5 @@
+---
+openio_rawx_instances:
+  - path: /mnt/sdb1
+  - path: /mnt/sdc1
+...

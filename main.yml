@@ -50,13 +50,16 @@
 - name: Install redis
   import_playbook: redis.yml
   tags: redis
+
 - name: Install account
   import_playbook: account.yml
   tags: account
 
+- name: Install rawx
+  import_playbook: rawx.yml
+  tags: rawx
+
 - name: Install conscience agent
   import_playbook: conscienceagent.yml
   tags: conscienceagent
-
-
 ...

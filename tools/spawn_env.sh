@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(seq 1 6); do
+for i in $(seq 1 7); do
 docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro --volume=$HOME/.ssh:/root/.ssh --name node${i} --hostname node${i} centos_sshd /usr/lib/systemd/systemd > "/tmp/172.17.0.$((i+1))"
 done
 #sleep 1

@@ -66,4 +66,8 @@
 - src: https://github.com/open-io/ansible-role-openio-oioswift.git
   version: master
   name: oioswift
+
+- src: https://github.com/open-io/ansible-role-openio-rawx.git
+  version: master
+  name: rawx
 ...

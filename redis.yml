@@ -10,6 +10,9 @@
   roles:
     - role: redis
       openio_redis_namespace: "{{ namespace }}"
+      openio_redis_master:
+        address: "{{ hostvars[ groups['redis'][0] ]['ansible_' + openio_bind_interface ]['ipv4']['address'] }}"
+        port: 6011
 
     - role: redis
       openio_redis_mode: sentinel

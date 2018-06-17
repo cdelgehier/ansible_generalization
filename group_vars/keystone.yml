@@ -26,7 +26,7 @@ openio_keystone_services_to_bootstrap:
 
 # MYSQL
 openio_keystone_database_engine: mysql
-openio_keystone_database_mysql_connection_password: "{{ hostvars[groups['db'][0]]['keystone_user_password'] }}"
+openio_keystone_database_mysql_connection_password: "{{ openio_database_keystone_password }}"
 openio_keystone_database_mysql_connection_address: "{{ hostvars[groups['db'][0]]['ansible_default_ipv4']['address'] }}"
 
 openio_keystone_users:

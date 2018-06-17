@@ -1,0 +1,16 @@
+---
+- name: Install RAWX
+  hosts: backs
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: refresh facts
+      setup:
+      when: ansible_default_ipv4 is not defined
+  roles:
+    - role: rawx
+      openio_rawx_namespace: "{{ namespace }}"
+      openio_rawx_version: "{{ openio_sds_version }}"
+      openio_rawx_bind_port_start_at: "{{ openio_rawx_port_start_at }}"
+
+...

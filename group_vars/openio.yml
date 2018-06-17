@@ -10,7 +10,7 @@ openio_swift_swift3_version: latest
 # Namespace
 namespace: TESTCDE
 namespace_conscience:
-  address: 172.17.0.3:6000
+  address: 172.17.0.5:6000
 namespace_zookeeper:
   address: ""
 namespace_oioproxy:
@@ -33,6 +33,8 @@ namespace_service_update_policy:
     replicas: 3
     distance: 1
 
+# Ports
+openio_rawx_port_start_at: 6200
 
 # Network
 openio_bind_interface: "{{ ansible_default_ipv4.alias }}"
